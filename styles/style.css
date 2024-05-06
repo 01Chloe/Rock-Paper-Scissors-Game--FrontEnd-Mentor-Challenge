@@ -1,0 +1,367 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 30px;
+  background: linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+  height: 100vh;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #f1f1f1;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 70px;
+  border: 4px solid hsl(217, 16%, 45%);
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: translateYAnim 0.5s ease-out forwards;
+}
+header h1 {
+  line-height: 0.8;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+header .score {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px 25px;
+  text-align: center;
+}
+header .score h2 {
+  color: hsl(229, 64%, 46%);
+  font-size: 1rem;
+}
+header .score p {
+  color: hsl(229, 25%, 31%);
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+@keyframes translateYAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+main {
+  flex-grow: 1;
+}
+main .game {
+  display: block;
+  position: relative;
+  height: 200px;
+  width: 250px;
+  margin: 0 auto;
+  background-image: url(../images/bg-pentagon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: translateYAnim 0.5s 0.3s ease-out forwards;
+}
+main .game .item {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+main .game .item.scissors {
+  background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+main .game .item.spock {
+  background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
+  top: 35%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+}
+main .game .item.paper {
+  background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
+  top: 35%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+}
+main .game .item.lizard {
+  background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
+  top: 95%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+main .game .item.rock {
+  background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
+  top: 95%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+main .game .item .circle {
+  border: none;
+  background-color: #f1f1f1;
+  box-shadow: inset 0 5px 10px hsl(217, 16%, 45%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+}
+main .game .item .circle img {
+  width: 35px;
+}
+main .game.hide {
+  display: none;
+}
+main .results {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+main .results .results-area {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0);
+}
+main .results .results-area.player-area {
+  animation: scaleAnim 0.3s ease-in-out forwards;
+}
+main .results .results-area.computer-area {
+  animation: scaleAnim 0.3s 0.5s ease-in-out forwards;
+}
+main .results .results-area p {
+  text-transform: uppercase;
+}
+main .results .results-area .item {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+  margin-bottom: 15px;
+}
+main .results .results-area .item.scissors {
+  background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
+}
+main .results .results-area .item.spock {
+  background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
+}
+main .results .results-area .item.paper {
+  background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
+}
+main .results .results-area .item.lizard {
+  background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
+}
+main .results .results-area .item.rock {
+  background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
+}
+main .results .results-area .item .circle {
+  border: none;
+  background-color: #f1f1f1;
+  box-shadow: inset 0 5px 10px hsl(217, 16%, 45%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+}
+main .results .results-area .item .circle img {
+  width: 50px;
+}
+main .results.hide {
+  display: none;
+}
+main .rules {
+  display: flex;
+  justify-content: center;
+  margin: 70px 0 30px;
+}
+main .rules .rules-btn {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+  padding: 10px 30px;
+  color: #f1f1f1;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 1.25rem;
+  transition: background-color 0.3s ease-out;
+  opacity: 0;
+  transform: scale(0);
+  animation: scaleAnim 0.3s 0.5s ease-out forwards;
+  cursor: pointer;
+}
+main .rules .rules-btn:hover {
+  background-color: #f1f1f1;
+  color: hsl(237, 49%, 15%);
+}
+
+@keyframes scaleAnim {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.rules-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;
+  opacity: 0;
+  transform: scale(0);
+  animation: scaleAnim 0.3s ease-out forwards;
+}
+.rules-img-container .rules-img-content {
+  display: flex;
+  flex-direction: column;
+}
+.rules-img-container .rules-img-content h2 {
+  color: hsl(229, 25%, 31%);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.875rem;
+  margin-bottom: 50px;
+}
+.rules-img-container .rules-img-content .rules-img {
+  width: 250px;
+  margin-bottom: 80px;
+}
+.rules-img-container .rules-img-content .rules-img-close-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  display: block;
+  margin: 0 auto;
+  font-size: 2.5rem;
+  color: hsl(217, 16%, 45%);
+  cursor: pointer;
+}
+
+.rules-img-container.hide {
+  display: none;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  color: hsl(217, 16%, 45%);
+  opacity: 0;
+  animation: opacityAnim 0.3s 0.8s ease-out forwards;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+@keyframes opacityAnim {
+  to {
+    opacity: 1;
+  }
+}
+@media screen and (min-width: 375px) {
+  main .game .item.spock {
+    left: 0;
+  }
+  main .game .item.paper {
+    left: 100%;
+  }
+  main .results .results-area p {
+    letter-spacing: 1.3px;
+  }
+  .rules-img-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transform: scale(1);
+    animation: none;
+  }
+  .rules-img-container .rules-img-content {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    padding: 30px 30px 60px;
+    display: grid;
+    grid-template-areas: "title closeBtn" "img img" "img img";
+    opacity: 0;
+    transform: scale(0);
+    animation: scaleAnim 0.3s ease-out forwards;
+  }
+  .rules-img-container .rules-img-content h2 {
+    text-align: start;
+  }
+  .rules-img-container .rules-img-content .rules-img {
+    width: 300px;
+    grid-area: img;
+  }
+  .rules-img-container .rules-img-content .rules-img-close-btn {
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1066px) {
+  header {
+    margin: 0 300px 100px;
+  }
+  main {
+    position: relative;
+  }
+  main .game {
+    height: 250px;
+  }
+  main .results {
+    margin: 0 300px;
+    justify-content: space-between;
+  }
+  main .results .results-area {
+    flex-direction: column;
+  }
+  main .results .results-area .item {
+    margin-top: 30px;
+    margin-bottom: 0;
+    width: 200px;
+    height: 200px;
+  }
+  main .results .results-area .item .circle {
+    width: 155px;
+    height: 155px;
+  }
+  main .results .results-area .item .circle img {
+    width: 70px;
+  }
+  main .rules {
+    position: absolute;
+    right: 0;
+  }
+}/*# sourceMappingURL=style.css.map */

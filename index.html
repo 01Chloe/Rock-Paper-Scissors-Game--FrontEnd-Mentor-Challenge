@@ -4,13 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap"
+    rel="stylesheet">
+  <title>Frontend Mentor | Rock, Paper, Scissors, Lizard, Spock</title>
+  <script src="script.js" defer></script>
 
-  <title>Frontend Mentor | Rock, Paper, Scissors</title>
-
-  Score
+  <!-- Score
   Rules
 
   You Picked
@@ -19,29 +22,74 @@
   You Win
   You Lose
 
-  Play Again
+  Play Again -->
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution {
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .attribution a {
-      color: hsl(228, 45%, 44%);
-    }
-  </style>
 </head>
 
 <body>
 
+  <header>
+    <section>
+      <h1>Rock <br> Paper <br> Scissors <br> Lizard <br> Spock</h1>
+    </section>
+    <section class="score">
+      <h2>Score</h2>
+      <p>0</p>
+    </section>
+  </header>
 
+  <main>
+    <section class="game">
+      <div class="item scissors" data-item="scissors">
+        <button class="circle">
+          <img src="./images/icon-scissors.svg" alt="Scissors">
+        </button>
+      </div>
+      <div class="item spock" data-item="spock">
+        <button class="circle">
+          <img src="./images/icon-spock.svg" alt="Spock">
+        </button>
+      </div>
+      <div class="item paper" data-item="paper">
+        <button class="circle">
+          <img src="./images/icon-paper.svg" alt="Paper">
+        </button>
+      </div>
+      <div class="item lizard" data-item="lizard">
+        <button class="circle">
+          <img src="./images/icon-lizard.svg" alt="Lizard">
+        </button>
+      </div>
+      <div class="item rock" data-item="rock">
+        <button class="circle">
+          <img src="./images/icon-rock.svg" alt="Rock">
+        </button>
+      </div>
+    </section>
+    <section class="results hide">
+      <div class="results-area player-area">
+        <p>You Picked</p>
+      </div>
+      <div class="results-area computer-area">
+        <p>The House Picked</p>
+      </div>
+    </section>
+    <section class="rules">
+      <button class="rules-btn">Rules</button>
+    </section>
+  </main>
 
-  <div class="attribution">
+  <article class="rules-img-container hide">
+    <div class="rules-img-content">
+      <h2>Rules</h2>
+      <img src="./images/image-rules-bonus.svg" alt="rules" class="rules-img" />
+      <button class="rules-img-close-btn">&times;</button>
+    </div>
+  </article>
+  <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="https://github.com/01Chloe">Allier Chloé</a>.
-  </div>
+  </footer>
 </body>
 
 </html>

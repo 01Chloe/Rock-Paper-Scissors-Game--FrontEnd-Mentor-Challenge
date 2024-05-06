@@ -1,0 +1,18 @@
+@use "_variables.scss" as vars;
+
+@mixin item {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin circle {
+  border: none;
+  background-color: #f1f1f1;
+  box-shadow: inset 0 5px 10px vars.$headerOutline;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
