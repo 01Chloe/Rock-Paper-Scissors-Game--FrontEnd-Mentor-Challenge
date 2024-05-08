@@ -15,6 +15,7 @@ body {
   font-size: 16px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 header {
@@ -22,11 +23,12 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin-bottom: 70px;
   border: 4px solid hsl(217, 16%, 45%);
   border-radius: 10px;
   text-transform: uppercase;
   font-weight: 600;
+  position: relative;
+  z-index: 5;
   opacity: 0;
   transform: translateY(-50px);
   animation: translateYAnim 0.5s ease-out forwards;
@@ -66,7 +68,7 @@ main .game {
   position: relative;
   height: 200px;
   width: 250px;
-  margin: 0 auto;
+  margin: 70px auto 100px;
   background-image: url(../images/bg-pentagon.svg);
   background-position: center;
   background-repeat: no-repeat;
@@ -87,30 +89,35 @@ main .game .item {
 }
 main .game .item.scissors {
   background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
+  box-shadow: inset 0 -5px #bc7e0b;
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 main .game .item.spock {
   background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
+  box-shadow: inset 0 -5px #2d9bae;
   top: 35%;
   left: 10%;
   transform: translate(-50%, -50%);
 }
 main .game .item.paper {
   background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
+  box-shadow: inset 0 -5px #183df1;
   top: 35%;
   left: 90%;
   transform: translate(-50%, -50%);
 }
 main .game .item.lizard {
   background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
+  box-shadow: inset 0 -5px #6423dc;
   top: 95%;
   left: 20%;
   transform: translate(-50%, -50%);
 }
 main .game .item.rock {
   background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
+  box-shadow: inset 0 -5px #b81f3b;
   top: 95%;
   left: 80%;
   transform: translate(-50%, -50%);
@@ -118,7 +125,7 @@ main .game .item.rock {
 main .game .item .circle {
   border: none;
   background-color: #f1f1f1;
-  box-shadow: inset 0 5px 10px hsl(217, 16%, 45%);
+  box-shadow: inset 0 5px #d3d7df;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -134,13 +141,13 @@ main .game.hide {
   display: none;
 }
 main .results {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  margin-top: 30px;
+  display: grid;
+  grid-template-areas: "player computer" "playAgain playAgain";
 }
 main .results .results-area {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 0;
@@ -163,26 +170,44 @@ main .results .results-area .item {
   width: 130px;
   height: 130px;
   margin-bottom: 15px;
+  position: relative;
 }
 main .results .results-area .item.scissors {
   background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
+  box-shadow: inset 0 -5px #bc7e0b;
 }
 main .results .results-area .item.spock {
   background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
+  box-shadow: inset 0 -5px #2d9bae;
 }
 main .results .results-area .item.paper {
   background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
+  box-shadow: inset 0 -5px #183df1;
 }
 main .results .results-area .item.lizard {
   background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
+  box-shadow: inset 0 -5px #6423dc;
 }
 main .results .results-area .item.rock {
   background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
+  box-shadow: inset 0 -5px #b81f3b;
+}
+main .results .results-area .item.winner::after {
+  content: "";
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(#1f294a 0%, #1f294a 46%, #253252 46%, #253252 58%, #2b3858 58%, #2b3858 100%);
 }
 main .results .results-area .item .circle {
   border: none;
   background-color: #f1f1f1;
-  box-shadow: inset 0 5px 10px hsl(217, 16%, 45%);
+  box-shadow: inset 0 5px #d3d7df;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -193,29 +218,66 @@ main .results .results-area .item .circle {
 main .results .results-area .item .circle img {
   width: 50px;
 }
+main .results .play-again-container {
+  grid-area: playAgain;
+  margin-top: 20px;
+  z-index: 5;
+}
+main .results .play-again-container .result-txt {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  text-align: center;
+}
+main .results .play-again-container .play-again-btn {
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+  opacity: 0;
+  transform: scale(0);
+  display: block;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  border: 2px solid #f1f1f1;
+  padding: 10px;
+  width: 80%;
+  color: hsl(229, 25%, 31%);
+  font-weight: 600;
+  margin-top: 15px;
+  animation: scaleAnim 0.3s 1.1s ease-out forwards;
+}
+main .results .play-again-container .play-again-btn:hover {
+  border: 2px solid #f1f1f1;
+  background-color: transparent;
+  color: #f1f1f1;
+}
 main .results.hide {
   display: none;
 }
 main .rules {
   display: flex;
   justify-content: center;
-  margin: 70px 0 30px;
+  margin: 40px 0 15px;
 }
 main .rules .rules-btn {
-  background-color: transparent;
   border-radius: 10px;
-  border: 2px solid #f1f1f1;
-  padding: 10px 30px;
-  color: #f1f1f1;
-  font-family: "Barlow Semi Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1.5px;
+  font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 1.25rem;
+  cursor: pointer;
   transition: background-color 0.3s ease-out;
   opacity: 0;
   transform: scale(0);
-  animation: scaleAnim 0.3s 0.5s ease-out forwards;
-  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid #f1f1f1;
+  padding: 10px 30px;
+  color: #f1f1f1;
+  animation: scaleAnim 0.3s 0.8s ease-out forwards;
 }
 main .rules .rules-btn:hover {
   background-color: #f1f1f1;
@@ -332,7 +394,7 @@ main .rules .rules-btn:hover {
 }
 @media screen and (min-width: 1066px) {
   header {
-    margin: 0 300px 100px;
+    margin: 0 300px;
   }
   main {
     position: relative;
@@ -341,15 +403,12 @@ main .rules .rules-btn:hover {
     height: 250px;
   }
   main .results {
-    margin: 0 300px;
-    justify-content: space-between;
-  }
-  main .results .results-area {
-    flex-direction: column;
+    margin: 50px 100px;
+    grid-template-areas: "player playAgain computer";
+    align-items: center;
   }
   main .results .results-area .item {
     margin-top: 30px;
-    margin-bottom: 0;
     width: 200px;
     height: 200px;
   }
@@ -359,6 +418,9 @@ main .rules .rules-btn:hover {
   }
   main .results .results-area .item .circle img {
     width: 70px;
+  }
+  main .results .play-again-container .play-again-btn {
+    width: 60%;
   }
   main .rules {
     position: absolute;

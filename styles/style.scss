@@ -18,17 +18,19 @@ body {
   font-size: 16px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin-bottom: 70px;
   border: 4px solid vars.$headerOutline;
   border-radius: 10px;
   text-transform: uppercase;
   font-weight: 600;
+  position: relative;
+  z-index: 5;
   opacity: 0;
   transform: translateY(-50px);
   animation: translateYAnim 0.5s ease-out forwards;
@@ -66,7 +68,7 @@ main {
     position: relative;
     height: 200px;
     width: 250px;
-    margin: 0 auto;
+    margin: 70px auto 100px;
     background-image: url(../images/bg-pentagon.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -81,31 +83,31 @@ main {
       height: 100px;
       cursor: pointer;
       &.scissors {
-        background: linear-gradient(vars.$scissorsGradient);
+        @include mix.scissorsBg;
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
       }
       &.spock {
-        background: linear-gradient(vars.$cyan);
+        @include mix.spockBg;
         top: 35%;
         left: 10%;
         transform: translate(-50%, -50%);
       }
       &.paper {
-        background: linear-gradient(vars.$paperGradient);
+        @include mix.paperBg;
         top: 35%;
         left: 90%;
         transform: translate(-50%, -50%);
       }
       &.lizard {
-        background: linear-gradient(vars.$lizardGradient);
+        @include mix.lizardBg;
         top: 95%;
         left: 20%;
         transform: translate(-50%, -50%);
       }
       &.rock {
-        background: linear-gradient(vars.$rockGradient);
+        @include mix.rockBg;
         top: 95%;
         left: 80%;
         transform: translate(-50%, -50%);
@@ -125,12 +127,14 @@ main {
     display: none;
   }
   .results {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    margin-top: 30px;
+    display: grid;
+    grid-template-areas:
+      "player computer"
+      "playAgain playAgain";
     .results-area {
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
@@ -149,20 +153,40 @@ main {
         width: 130px;
         height: 130px;
         margin-bottom: 15px;
+        position: relative;
         &.scissors {
-          background: linear-gradient(vars.$scissorsGradient);
+          @include mix.scissorsBg;
         }
         &.spock {
-          background: linear-gradient(vars.$cyan);
+          @include mix.spockBg;
         }
         &.paper {
-          background: linear-gradient(vars.$paperGradient);
+          @include mix.paperBg;
         }
         &.lizard {
-          background: linear-gradient(vars.$lizardGradient);
+          @include mix.lizardBg;
         }
         &.rock {
-          background: linear-gradient(vars.$rockGradient);
+          @include mix.rockBg;
+        }
+        &.winner::after {
+          content: "";
+          width: 200%;
+          height: 200%;
+          border-radius: 50%;
+          position: absolute;
+          z-index: -5;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: radial-gradient(
+            #1f294a 0%,
+            #1f294a 46%,
+            #253252 46%,
+            #253252 58%,
+            #2b3858 58%,
+            #2b3858 100%
+          );
         }
         .circle {
           @include mix.circle;
@@ -174,6 +198,35 @@ main {
         }
       }
     }
+    .play-again-container {
+      grid-area: playAgain;
+      margin-top: 20px;
+      z-index: 5;
+      .result-txt {
+        font-size: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        text-align: center;
+      }
+      .play-again-btn {
+        @include mix.button;
+        display: block;
+        margin: 0 auto;
+        background-color: #f1f1f1;
+        border: 2px solid #f1f1f1;
+        padding: 10px;
+        width: 80%;
+        color: vars.$darkText;
+        font-weight: 600;
+        margin-top: 15px;
+        animation: scaleAnim 0.3s 1.1s ease-out forwards;
+        &:hover {
+          border: 2px solid #f1f1f1;
+          background-color: transparent;
+          color: #f1f1f1;
+        }
+      }
+    }
   }
   .results.hide {
     display: none;
@@ -181,22 +234,14 @@ main {
   .rules {
     display: flex;
     justify-content: center;
-    margin: 70px 0 30px;
+    margin: 40px 0 15px;
     .rules-btn {
+      @include mix.button;
       background-color: transparent;
-      border-radius: 10px;
       border: 2px solid #f1f1f1;
       padding: 10px 30px;
       color: #f1f1f1;
-      font-family: "Barlow Semi Condensed", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 1.25rem;
-      transition: background-color 0.3s ease-out;
-      opacity: 0;
-      transform: scale(0);
-      animation: scaleAnim 0.3s 0.5s ease-out forwards;
-      cursor: pointer;
+      animation: scaleAnim 0.3s 0.8s ease-out forwards;
       &:hover {
         background-color: #f1f1f1;
         color: hsl(237, 49%, 15%);
@@ -323,7 +368,7 @@ main {
 }
 @media screen and (min-width: vars.$desktop) {
   header {
-    margin: 0 300px 100px;
+    margin: 0 300px;
   }
   main {
     position: relative;
@@ -331,13 +376,12 @@ main {
       height: 250px;
     }
     .results {
-      margin: 0 300px;
-      justify-content: space-between;
+      margin: 50px 100px;
+      grid-template-areas: "player playAgain computer";
+      align-items: center;
       .results-area {
-        flex-direction: column;
         .item {
           margin-top: 30px;
-          margin-bottom: 0;
           width: 200px;
           height: 200px;
           .circle {
@@ -347,6 +391,11 @@ main {
               width: 70px;
             }
           }
+        }
+      }
+      .play-again-container {
+        .play-again-btn {
+          width: 60%;
         }
       }
     }

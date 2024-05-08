@@ -1,9 +1,14 @@
 // Game
 const items = document.querySelectorAll(".item")
-let itemNumber
+const playerScoreContainer = document.querySelector(".player-score")
 const itemsTabs = ["scissors", "spock", "paper", "lizard", "rock"]
 const gameContainer = document.querySelector(".game")
 const resultsContainer = document.querySelector(".results")
+let playerScore = 0
+let itemNumber
+let itemName
+
+playerScoreContainer.textContent = playerScore
 
 items.forEach((item) => {
   item.addEventListener("click", () => {
@@ -13,7 +18,7 @@ items.forEach((item) => {
 
 function chooseItem(item) {
   getItemsNumber()
-  let itemName = item.dataset.item
+  itemName = item.dataset.item
   gameContainer.classList.add("hide")
   resultsContainer.classList.remove("hide")
   showResults(itemName, itemsTabs[itemNumber])
@@ -26,47 +31,106 @@ function getItemsNumber() {
 // Show results
 const playerArea = document.querySelector(".player-area")
 const computerArea = document.querySelector(".computer-area")
+const playAgainBtn = document.querySelector(".play-again-btn")
+const resultTxt = document.querySelector(".result-txt")
 
 function showResults(playerItem, computerItem) {
-  const playerItemContainer = playerArea.appendChild(
-    document.createElement("div")
-  )
+  const playerItemContainer = playerArea.querySelector(".item")
   playerItemContainer.setAttribute("class", `item ${playerItem}`)
 
-  const playerItemCircle = playerItemContainer.appendChild(
-    document.createElement("div")
-  )
-  playerItemCircle.setAttribute("class", "circle")
+  const playerItemCircle = playerItemContainer.querySelector(".circle")
 
-  const playerPickedImg = playerItemCircle.appendChild(
-    document.createElement("img")
-  )
+  const playerPickedImg = playerItemCircle.querySelector(".item-img")
   playerPickedImg.src = `./images/icon-${playerItem}.svg`
   playerPickedImg.alt = playerItem
 
-  const computerItemContainer = computerArea.appendChild(
-    document.createElement("div")
-  )
+  const computerItemContainer = computerArea.querySelector(".item")
   computerItemContainer.setAttribute("class", `item ${computerItem}`)
 
-  const computerItemCircle = computerItemContainer.appendChild(
-    document.createElement("div")
-  )
-  computerItemCircle.setAttribute("class", "circle")
+  const computerItemCircle = computerItemContainer.querySelector(".circle")
 
-  const computerPickedImg = computerItemCircle.appendChild(
-    document.createElement("img")
-  )
+  const computerPickedImg = computerItemCircle.querySelector(".item-img")
   computerPickedImg.src = `./images/icon-${computerItem}.svg`
   computerPickedImg.alt = computerItem
 
   setTimeout(() => {
-    showWinner()
-  }, 3000)
+    showWinner(
+      playerItem,
+      computerItem,
+      playerItemContainer,
+      computerItemContainer
+    )
+  }, 1000)
+
+  playAgainBtn.addEventListener("click", () => {
+    gameContainer.classList.remove("hide")
+    resultsContainer.classList.add("hide")
+    resultTxt.textContent = ""
+  })
 }
 
-function showWinner() {
-  console.log("Winner")
+const results = {
+  paper: {
+    paper: "equality",
+    rock: "you win",
+    spock: "you win",
+    scissors: "you lose",
+    lizard: "you lose",
+  },
+  scissors: {
+    scissors: "equality",
+    paper: "you win",
+    lizard: "you win",
+    rock: "you lose",
+    spock: "you lose",
+  },
+  rock: {
+    rock: "equality",
+    scissors: "you win",
+    lizard: "you win",
+    paper: "you lose",
+    spock: "you lose",
+  },
+  lizard: {
+    lizard: "equality",
+    paper: "you win",
+    spock: "you win",
+    scissors: "you lose",
+    rock: "you lose",
+  },
+  spock: {
+    spock: "equality",
+    scissors: "you win",
+    rock: "you win",
+    paper: "you lose",
+    lizard: "you lose",
+  },
+}
+
+function showWinner(
+  playerItem,
+  computerItem,
+  playerItemContainer,
+  computerItemContainer
+) {
+  const result = results[playerItem][computerItem]
+  resultTxt.textContent = result
+  if (result === "you win") {
+    increaseScore()
+    playerItemContainer.classList.add("winner")
+    playerArea.style.zIndex = 0
+    computerArea.style.zIndex = 5
+  }
+  if (result === "you lose") {
+    computerItemContainer.classList.add("winner")
+    computerArea.style.zIndex = 0
+    playerArea.style.zIndex = 5
+  }
+}
+
+function increaseScore() {
+  playerScore++
+  playerScoreContainer.textContent = playerScore
 }
 
 // Rules
