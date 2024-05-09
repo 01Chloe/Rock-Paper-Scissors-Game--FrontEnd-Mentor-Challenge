@@ -11,8 +11,9 @@ body {
   background: linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
   height: 100vh;
   font-family: "Barlow Semi Condensed", sans-serif;
-  color: #f1f1f1;
+  color: hsl(0, 0%, 95%);
   font-size: 16px;
+  text-transform: uppercase;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -25,7 +26,6 @@ header {
   padding: 20px;
   border: 4px solid hsl(217, 16%, 45%);
   border-radius: 10px;
-  text-transform: uppercase;
   font-weight: 600;
   position: relative;
   z-index: 5;
@@ -39,7 +39,7 @@ header h1 {
   font-weight: 700;
 }
 header .score {
-  background-color: #f1f1f1;
+  background-color: hsl(0, 0%, 95%);
   border-radius: 5px;
   padding: 10px 25px;
   text-align: center;
@@ -63,7 +63,8 @@ header .score p {
 main {
   flex-grow: 1;
 }
-main .game {
+
+.game {
   display: block;
   position: relative;
   height: 200px;
@@ -77,7 +78,7 @@ main .game {
   transform: translateY(-30px);
   animation: translateYAnim 0.5s 0.3s ease-out forwards;
 }
-main .game .item {
+.game .item {
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -87,44 +88,44 @@ main .game .item {
   height: 100px;
   cursor: pointer;
 }
-main .game .item.scissors {
+.game .item.scissors {
   background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
   box-shadow: inset 0 -5px #bc7e0b;
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-main .game .item.spock {
+.game .item.spock {
   background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
   box-shadow: inset 0 -5px #2d9bae;
   top: 35%;
   left: 10%;
   transform: translate(-50%, -50%);
 }
-main .game .item.paper {
+.game .item.paper {
   background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
   box-shadow: inset 0 -5px #183df1;
   top: 35%;
   left: 90%;
   transform: translate(-50%, -50%);
 }
-main .game .item.lizard {
+.game .item.lizard {
   background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
   box-shadow: inset 0 -5px #6423dc;
   top: 95%;
   left: 20%;
   transform: translate(-50%, -50%);
 }
-main .game .item.rock {
+.game .item.rock {
   background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
   box-shadow: inset 0 -5px #b81f3b;
   top: 95%;
   left: 80%;
   transform: translate(-50%, -50%);
 }
-main .game .item .circle {
+.game .item .circle {
   border: none;
-  background-color: #f1f1f1;
+  background-color: hsl(0, 0%, 95%);
   box-shadow: inset 0 5px #d3d7df;
   border-radius: 50%;
   display: flex;
@@ -134,18 +135,20 @@ main .game .item .circle {
   height: 75px;
   cursor: pointer;
 }
-main .game .item .circle img {
+.game .item .circle img {
   width: 35px;
 }
-main .game.hide {
+
+.game.hide {
   display: none;
 }
-main .results {
+
+.results {
   margin-top: 30px;
   display: grid;
   grid-template-areas: "player computer" "playAgain playAgain";
 }
-main .results .results-area {
+.results .results-area {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -153,16 +156,13 @@ main .results .results-area {
   opacity: 0;
   transform: scale(0);
 }
-main .results .results-area.player-area {
+.results .results-area.player-area {
   animation: scaleAnim 0.3s ease-in-out forwards;
 }
-main .results .results-area.computer-area {
+.results .results-area.computer-area {
   animation: scaleAnim 0.3s 0.5s ease-in-out forwards;
 }
-main .results .results-area p {
-  text-transform: uppercase;
-}
-main .results .results-area .item {
+.results .results-area .item {
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -172,27 +172,27 @@ main .results .results-area .item {
   margin-bottom: 15px;
   position: relative;
 }
-main .results .results-area .item.scissors {
+.results .results-area .item.scissors {
   background: linear-gradient(hsl(40, 84%, 53%), hsl(39, 89%, 49%));
   box-shadow: inset 0 -5px #bc7e0b;
 }
-main .results .results-area .item.spock {
+.results .results-area .item.spock {
   background: linear-gradient(hsl(189, 58%, 57%), hsl(189, 59%, 53%));
   box-shadow: inset 0 -5px #2d9bae;
 }
-main .results .results-area .item.paper {
+.results .results-area .item.paper {
   background: linear-gradient(hsl(230, 89%, 65%), hsl(230, 89%, 62%));
   box-shadow: inset 0 -5px #183df1;
 }
-main .results .results-area .item.lizard {
+.results .results-area .item.lizard {
   background: linear-gradient(hsl(261, 72%, 63%), hsl(261, 73%, 60%));
   box-shadow: inset 0 -5px #6423dc;
 }
-main .results .results-area .item.rock {
+.results .results-area .item.rock {
   background: linear-gradient(hsl(349, 70%, 56%), hsl(349, 71%, 52%));
   box-shadow: inset 0 -5px #b81f3b;
 }
-main .results .results-area .item.winner::after {
+.results .results-area .item.winner::after {
   content: "";
   width: 200%;
   height: 200%;
@@ -202,11 +202,11 @@ main .results .results-area .item.winner::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(#1f294a 0%, #1f294a 46%, #253252 46%, #253252 58%, #2b3858 58%, #2b3858 100%);
+  background: radial-gradient(#2b3858 0%, #2b3858 45%, #253252 46%, #253252 57%, #1f294a 58%, #1f294a 100%);
 }
-main .results .results-area .item .circle {
+.results .results-area .item .circle {
   border: none;
-  background-color: #f1f1f1;
+  background-color: hsl(0, 0%, 95%);
   box-shadow: inset 0 5px #d3d7df;
   border-radius: 50%;
   display: flex;
@@ -215,21 +215,20 @@ main .results .results-area .item .circle {
   width: 100px;
   height: 100px;
 }
-main .results .results-area .item .circle img {
+.results .results-area .item .circle img {
   width: 50px;
 }
-main .results .play-again-container {
+.results .play-again-container {
   grid-area: playAgain;
   margin-top: 20px;
   z-index: 5;
 }
-main .results .play-again-container .result-txt {
+.results .play-again-container .result-txt {
   font-size: 3rem;
-  text-transform: uppercase;
   letter-spacing: 1.3px;
   text-align: center;
 }
-main .results .play-again-container .play-again-btn {
+.results .play-again-container .play-again-btn {
   border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -241,8 +240,8 @@ main .results .play-again-container .play-again-btn {
   transform: scale(0);
   display: block;
   margin: 0 auto;
-  background-color: #f1f1f1;
-  border: 2px solid #f1f1f1;
+  background-color: hsl(0, 0%, 95%);
+  border: 2px solid hsl(0, 0%, 95%);
   padding: 10px;
   width: 80%;
   color: hsl(229, 25%, 31%);
@@ -250,20 +249,22 @@ main .results .play-again-container .play-again-btn {
   margin-top: 15px;
   animation: scaleAnim 0.3s 1.1s ease-out forwards;
 }
-main .results .play-again-container .play-again-btn:hover {
-  border: 2px solid #f1f1f1;
+.results .play-again-container .play-again-btn:hover {
+  border: 2px solid hsl(0, 0%, 95%);
   background-color: transparent;
-  color: #f1f1f1;
+  color: hsl(0, 0%, 95%);
 }
-main .results.hide {
+
+.results.hide {
   display: none;
 }
-main .rules {
+
+.rules {
   display: flex;
   justify-content: center;
   margin: 40px 0 15px;
 }
-main .rules .rules-btn {
+.rules .rules-btn {
   border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -274,13 +275,13 @@ main .rules .rules-btn {
   opacity: 0;
   transform: scale(0);
   background-color: transparent;
-  border: 2px solid #f1f1f1;
+  border: 2px solid hsl(0, 0%, 95%);
   padding: 10px 30px;
-  color: #f1f1f1;
+  color: hsl(0, 0%, 95%);
   animation: scaleAnim 0.3s 0.8s ease-out forwards;
 }
-main .rules .rules-btn:hover {
-  background-color: #f1f1f1;
+.rules .rules-btn:hover {
+  background-color: hsl(0, 0%, 95%);
   color: hsl(237, 49%, 15%);
 }
 
@@ -291,18 +292,16 @@ main .rules .rules-btn:hover {
   }
 }
 .rules-img-container {
+  opacity: 0;
+  transform: scale(0);
+  animation: scaleAnim 0.3s ease-out forwards;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   inset: 0;
   z-index: 5;
-  width: 100%;
-  height: 100%;
-  background-color: #f1f1f1;
-  opacity: 0;
-  transform: scale(0);
-  animation: scaleAnim 0.3s ease-out forwards;
+  background-color: hsl(0, 0%, 95%);
 }
 .rules-img-container .rules-img-content {
   display: flex;
@@ -310,7 +309,6 @@ main .rules .rules-btn:hover {
 }
 .rules-img-container .rules-img-content h2 {
   color: hsl(229, 25%, 31%);
-  text-transform: uppercase;
   text-align: center;
   font-size: 1.875rem;
   margin-bottom: 50px;
@@ -341,8 +339,8 @@ main .rules .rules-btn:hover {
   color: hsl(217, 16%, 45%);
   opacity: 0;
   animation: opacityAnim 0.3s 0.8s ease-out forwards;
+  text-transform: capitalize;
 }
-
 .attribution a {
   color: hsl(228, 45%, 44%);
 }
@@ -353,13 +351,13 @@ main .rules .rules-btn:hover {
   }
 }
 @media screen and (min-width: 375px) {
-  main .game .item.spock {
+  .game .item.spock {
     left: 0;
   }
-  main .game .item.paper {
+  .game .item.paper {
     left: 100%;
   }
-  main .results .results-area p {
+  .results .results-area p {
     letter-spacing: 1.3px;
   }
   .rules-img-container {
@@ -369,14 +367,14 @@ main .rules .rules-btn:hover {
     animation: none;
   }
   .rules-img-container .rules-img-content {
-    background-color: #f1f1f1;
+    opacity: 0;
+    transform: scale(0);
+    animation: scaleAnim 0.3s ease-out forwards;
+    background-color: hsl(0, 0%, 95%);
     border-radius: 20px;
     padding: 30px 30px 60px;
     display: grid;
     grid-template-areas: "title closeBtn" "img img" "img img";
-    opacity: 0;
-    transform: scale(0);
-    animation: scaleAnim 0.3s ease-out forwards;
   }
   .rules-img-container .rules-img-content h2 {
     text-align: start;
@@ -399,30 +397,34 @@ main .rules .rules-btn:hover {
   main {
     position: relative;
   }
-  main .game {
+  .game {
     height: 250px;
   }
-  main .results {
+  .results {
     margin: 50px 100px;
     grid-template-areas: "player playAgain computer";
     align-items: center;
   }
-  main .results .results-area .item {
+  .results .results-area .item {
     margin-top: 30px;
     width: 200px;
     height: 200px;
   }
-  main .results .results-area .item .circle {
+  .results .results-area .item.winner::after {
+    width: 250%;
+    height: 250%;
+  }
+  .results .results-area .item .circle {
     width: 155px;
     height: 155px;
   }
-  main .results .results-area .item .circle img {
+  .results .results-area .item .circle img {
     width: 70px;
   }
-  main .results .play-again-container .play-again-btn {
+  .results .play-again-container .play-again-btn {
     width: 60%;
   }
-  main .rules {
+  .rules {
     position: absolute;
     right: 0;
   }

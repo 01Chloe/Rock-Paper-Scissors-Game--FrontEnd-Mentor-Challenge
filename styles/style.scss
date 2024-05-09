@@ -14,8 +14,9 @@ body {
   background: linear-gradient(vars.$radialGradient);
   height: 100vh;
   font-family: "Barlow Semi Condensed", sans-serif;
-  color: #f1f1f1;
+  color: vars.$lightText;
   font-size: 16px;
+  text-transform: uppercase;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -27,7 +28,6 @@ header {
   padding: 20px;
   border: 4px solid vars.$headerOutline;
   border-radius: 10px;
-  text-transform: uppercase;
   font-weight: 600;
   position: relative;
   z-index: 5;
@@ -40,7 +40,7 @@ header {
     font-weight: 700;
   }
   .score {
-    background-color: #f1f1f1;
+    background-color: vars.$lightText;
     border-radius: 5px;
     padding: 10px 25px;
     text-align: center;
@@ -63,189 +63,185 @@ header {
 }
 main {
   flex-grow: 1;
-  .game {
-    display: block;
-    position: relative;
-    height: 200px;
-    width: 250px;
-    margin: 70px auto 100px;
-    background-image: url(../images/bg-pentagon.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+}
+.game {
+  display: block;
+  position: relative;
+  height: 200px;
+  width: 250px;
+  margin: 70px auto 100px;
+  background-image: url(../images/bg-pentagon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: translateYAnim 0.5s 0.3s ease-out forwards;
+  .item {
+    @include mix.item;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    &.scissors {
+      @include mix.scissorsBg;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.spock {
+      @include mix.spockBg;
+      top: 35%;
+      left: 10%;
+      transform: translate(-50%, -50%);
+    }
+    &.paper {
+      @include mix.paperBg;
+      top: 35%;
+      left: 90%;
+      transform: translate(-50%, -50%);
+    }
+    &.lizard {
+      @include mix.lizardBg;
+      top: 95%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+    }
+    &.rock {
+      @include mix.rockBg;
+      top: 95%;
+      left: 80%;
+      transform: translate(-50%, -50%);
+    }
+    .circle {
+      @include mix.circle;
+      width: 75px;
+      height: 75px;
+      cursor: pointer;
+      img {
+        width: 35px;
+      }
+    }
+  }
+}
+.game.hide {
+  display: none;
+}
+.results {
+  margin-top: 30px;
+  display: grid;
+  grid-template-areas:
+    "player computer"
+    "playAgain playAgain";
+  .results-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
-    transform: translateY(-30px);
-    animation: translateYAnim 0.5s 0.3s ease-out forwards;
+    transform: scale(0);
+    &.player-area {
+      animation: scaleAnim 0.3s ease-in-out forwards;
+    }
+    &.computer-area {
+      animation: scaleAnim 0.3s 0.5s ease-in-out forwards;
+    }
     .item {
       @include mix.item;
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      cursor: pointer;
+      width: 130px;
+      height: 130px;
+      margin-bottom: 15px;
+      position: relative;
       &.scissors {
         @include mix.scissorsBg;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
       }
       &.spock {
         @include mix.spockBg;
-        top: 35%;
-        left: 10%;
-        transform: translate(-50%, -50%);
       }
       &.paper {
         @include mix.paperBg;
-        top: 35%;
-        left: 90%;
-        transform: translate(-50%, -50%);
       }
       &.lizard {
         @include mix.lizardBg;
-        top: 95%;
-        left: 20%;
-        transform: translate(-50%, -50%);
       }
       &.rock {
         @include mix.rockBg;
-        top: 95%;
-        left: 80%;
+      }
+      &.winner::after {
+        content: "";
+        width: 200%;
+        height: 200%;
+        border-radius: 50%;
+        position: absolute;
+        z-index: -5;
+        top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
+        background: radial-gradient(
+          #2b3858 0%,
+          #2b3858 45%,
+          #253252 46%,
+          #253252 57%,
+          #1f294a 58%,
+          #1f294a 100%
+        );
       }
       .circle {
         @include mix.circle;
-        width: 75px;
-        height: 75px;
-        cursor: pointer;
+        width: 100px;
+        height: 100px;
         img {
-          width: 35px;
+          width: 50px;
         }
       }
     }
   }
-  .game.hide {
-    display: none;
-  }
-  .results {
-    margin-top: 30px;
-    display: grid;
-    grid-template-areas:
-      "player computer"
-      "playAgain playAgain";
-    .results-area {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transform: scale(0);
-      &.player-area {
-        animation: scaleAnim 0.3s ease-in-out forwards;
-      }
-      &.computer-area {
-        animation: scaleAnim 0.3s 0.5s ease-in-out forwards;
-      }
-      p {
-        text-transform: uppercase;
-      }
-      .item {
-        @include mix.item;
-        width: 130px;
-        height: 130px;
-        margin-bottom: 15px;
-        position: relative;
-        &.scissors {
-          @include mix.scissorsBg;
-        }
-        &.spock {
-          @include mix.spockBg;
-        }
-        &.paper {
-          @include mix.paperBg;
-        }
-        &.lizard {
-          @include mix.lizardBg;
-        }
-        &.rock {
-          @include mix.rockBg;
-        }
-        &.winner::after {
-          content: "";
-          width: 200%;
-          height: 200%;
-          border-radius: 50%;
-          position: absolute;
-          z-index: -5;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: radial-gradient(
-            #1f294a 0%,
-            #1f294a 46%,
-            #253252 46%,
-            #253252 58%,
-            #2b3858 58%,
-            #2b3858 100%
-          );
-        }
-        .circle {
-          @include mix.circle;
-          width: 100px;
-          height: 100px;
-          img {
-            width: 50px;
-          }
-        }
-      }
+  .play-again-container {
+    grid-area: playAgain;
+    margin-top: 20px;
+    z-index: 5;
+    .result-txt {
+      font-size: 3rem;
+      letter-spacing: 1.3px;
+      text-align: center;
     }
-    .play-again-container {
-      grid-area: playAgain;
-      margin-top: 20px;
-      z-index: 5;
-      .result-txt {
-        font-size: 3rem;
-        text-transform: uppercase;
-        letter-spacing: 1.3px;
-        text-align: center;
-      }
-      .play-again-btn {
-        @include mix.button;
-        display: block;
-        margin: 0 auto;
-        background-color: #f1f1f1;
-        border: 2px solid #f1f1f1;
-        padding: 10px;
-        width: 80%;
-        color: vars.$darkText;
-        font-weight: 600;
-        margin-top: 15px;
-        animation: scaleAnim 0.3s 1.1s ease-out forwards;
-        &:hover {
-          border: 2px solid #f1f1f1;
-          background-color: transparent;
-          color: #f1f1f1;
-        }
-      }
-    }
-  }
-  .results.hide {
-    display: none;
-  }
-  .rules {
-    display: flex;
-    justify-content: center;
-    margin: 40px 0 15px;
-    .rules-btn {
+    .play-again-btn {
       @include mix.button;
-      background-color: transparent;
-      border: 2px solid #f1f1f1;
-      padding: 10px 30px;
-      color: #f1f1f1;
-      animation: scaleAnim 0.3s 0.8s ease-out forwards;
+      display: block;
+      margin: 0 auto;
+      background-color: vars.$lightText;
+      border: 2px solid vars.$lightText;
+      padding: 10px;
+      width: 80%;
+      color: vars.$darkText;
+      font-weight: 600;
+      margin-top: 15px;
+      animation: scaleAnim 0.3s 1.1s ease-out forwards;
       &:hover {
-        background-color: #f1f1f1;
-        color: hsl(237, 49%, 15%);
+        border: 2px solid vars.$lightText;
+        background-color: transparent;
+        color: vars.$lightText;
       }
+    }
+  }
+}
+.results.hide {
+  display: none;
+}
+.rules {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 15px;
+  .rules-btn {
+    @include mix.button;
+    background-color: transparent;
+    border: 2px solid vars.$lightText;
+    padding: 10px 30px;
+    color: vars.$lightText;
+    animation: scaleAnim 0.3s 0.8s ease-out forwards;
+    &:hover {
+      background-color: vars.$lightText;
+      color: hsl(237, 49%, 15%);
     }
   }
 }
@@ -256,24 +252,19 @@ main {
   }
 }
 .rules-img-container {
+  @include mix.scaleOptions;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   inset: 0;
   z-index: 5;
-  width: 100%;
-  height: 100%;
-  background-color: #f1f1f1;
-  opacity: 0;
-  transform: scale(0);
-  animation: scaleAnim 0.3s ease-out forwards;
+  background-color: vars.$lightText;
   .rules-img-content {
     display: flex;
     flex-direction: column;
     h2 {
       color: vars.$darkText;
-      text-transform: uppercase;
       text-align: center;
       font-size: 1.875rem;
       margin-bottom: 50px;
@@ -304,9 +295,10 @@ main {
   color: vars.$headerOutline;
   opacity: 0;
   animation: opacityAnim 0.3s 0.8s ease-out forwards;
-}
-.attribution a {
-  color: hsl(228, 45%, 44%);
+  text-transform: capitalize;
+  a {
+    color: hsl(228, 45%, 44%);
+  }
 }
 @keyframes opacityAnim {
   to {
@@ -314,22 +306,20 @@ main {
   }
 }
 @media screen and (min-width: vars.$mobile) {
-  main {
-    .game {
-      .item {
-        &.spock {
-          left: 0;
-        }
-        &.paper {
-          left: 100%;
-        }
+  .game {
+    .item {
+      &.spock {
+        left: 0;
+      }
+      &.paper {
+        left: 100%;
       }
     }
-    .results {
-      .results-area {
-        p {
-          letter-spacing: 1.3px;
-        }
+  }
+  .results {
+    .results-area {
+      p {
+        letter-spacing: 1.3px;
       }
     }
   }
@@ -339,7 +329,8 @@ main {
     transform: scale(1);
     animation: none;
     .rules-img-content {
-      background-color: #f1f1f1;
+      @include mix.scaleOptions;
+      background-color: vars.$lightText;
       border-radius: 20px;
       padding: 30px 30px 60px;
       display: grid;
@@ -347,9 +338,6 @@ main {
         "title closeBtn"
         "img img"
         "img img";
-      opacity: 0;
-      transform: scale(0);
-      animation: scaleAnim 0.3s ease-out forwards;
       h2 {
         text-align: start;
       }
@@ -372,36 +360,40 @@ main {
   }
   main {
     position: relative;
-    .game {
-      height: 250px;
-    }
-    .results {
-      margin: 50px 100px;
-      grid-template-areas: "player playAgain computer";
-      align-items: center;
-      .results-area {
-        .item {
-          margin-top: 30px;
-          width: 200px;
-          height: 200px;
-          .circle {
-            width: 155px;
-            height: 155px;
-            img {
-              width: 70px;
-            }
+  }
+  .game {
+    height: 250px;
+  }
+  .results {
+    margin: 50px 100px;
+    grid-template-areas: "player playAgain computer";
+    align-items: center;
+    .results-area {
+      .item {
+        margin-top: 30px;
+        width: 200px;
+        height: 200px;
+        &.winner::after {
+          width: 250%;
+          height: 250%;
+        }
+        .circle {
+          width: 155px;
+          height: 155px;
+          img {
+            width: 70px;
           }
         }
       }
-      .play-again-container {
-        .play-again-btn {
-          width: 60%;
-        }
+    }
+    .play-again-container {
+      .play-again-btn {
+        width: 60%;
       }
     }
-    .rules {
-      position: absolute;
-      right: 0;
-    }
+  }
+  .rules {
+    position: absolute;
+    right: 0;
   }
 }
